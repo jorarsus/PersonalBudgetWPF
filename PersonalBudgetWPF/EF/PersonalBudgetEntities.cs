@@ -44,7 +44,7 @@ namespace PersonalBudgetWPF.EF
     public class Account
     {
         public int Id { get; set; }
-        public String Concept;
+        public String Concept { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

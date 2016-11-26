@@ -12,6 +12,7 @@ namespace PersonalBudgetWPF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Concept = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
