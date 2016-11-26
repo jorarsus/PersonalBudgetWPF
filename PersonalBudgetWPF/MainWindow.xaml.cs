@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PersonalBudgetWPF.EF;
+using System.Data.Entity.Infrastructure;
 
 namespace PersonalBudgetWPF
 {
@@ -23,6 +25,22 @@ namespace PersonalBudgetWPF
         public MainWindow()
         {
             InitializeComponent();
+
+            using (var ctx = new PersonalBudgetContext())
+            {
+                Transaction trans = new Transaction { Value = 100, Date=DateTime.Now};
+
+                ctx.Transactions.Add(trans);
+
+                try
+                {
+                    ctx.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
         }
     }
 }
