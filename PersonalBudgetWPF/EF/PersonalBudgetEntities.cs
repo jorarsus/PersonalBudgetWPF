@@ -43,6 +43,11 @@ namespace PersonalBudgetWPF.EF
 
     public class Account
     {
+        public Account()
+        {
+            Transactions = new HashSet<Transaction>();
+        }
+
         public int Id { get; set; }
         public String Concept { get; set; }
 
@@ -51,6 +56,10 @@ namespace PersonalBudgetWPF.EF
 
     public class Type
     {
+        public Type()
+        {
+            Transactions = new HashSet<Transaction>();
+        }
         public int Id { get; set; }
         public String Description { get; set; }
 
