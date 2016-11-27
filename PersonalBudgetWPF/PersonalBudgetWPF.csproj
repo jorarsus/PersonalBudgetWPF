@@ -79,6 +79,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="AddTransaction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201611212143557_InitialCreate.cs" />
@@ -89,7 +93,14 @@
     <Compile Include="Migrations\201611260905412_AddsAccountAndType.Designer.cs">
       <DependentUpon>201611260905412_AddsAccountAndType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611271027420_AddsTransactionConcept.cs" />
+    <Compile Include="Migrations\201611271027420_AddsTransactionConcept.Designer.cs">
+      <DependentUpon>201611271027420_AddsTransactionConcept.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="AddTransaction.xaml.cs">
+      <DependentUpon>AddTransaction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611260905412_AddsAccountAndType.resx">
       <DependentUpon>201611260905412_AddsAccountAndType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611271027420_AddsTransactionConcept.resx">
+      <DependentUpon>201611271027420_AddsTransactionConcept.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

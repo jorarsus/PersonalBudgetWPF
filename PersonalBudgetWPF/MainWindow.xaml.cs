@@ -26,21 +26,40 @@ namespace PersonalBudgetWPF
         {
             InitializeComponent();
 
+            //using (var ctx = new PersonalBudgetContext())
+            //{
+            //    Transaction trans = new Transaction { Value = 100, Date=DateTime.Now};
+
+            //    ctx.Transactions.Add(trans);
+
+            //    try
+            //    {
+            //        ctx.SaveChanges();
+            //    }
+            //    catch (DbUpdateException e)
+            //    {
+            //        Console.WriteLine(e);
+            //    }
+            //}
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
             using (var ctx = new PersonalBudgetContext())
             {
-                Transaction trans = new Transaction { Value = 100, Date=DateTime.Now};
+                var Transactions = ctx.Transactions;
 
-                ctx.Transactions.Add(trans);
+                var query = from transaction in Transactions
+                            select new { transaction.Date, transaction.Value , AccountType = transaction.Account.Concept, transaction.Concept, transaction.Type.Description};
 
-                try
-                {
-                    ctx.SaveChanges();
-                }
-                catch (DbUpdateException e)
-                {
-                    Console.WriteLine(e);
-                }
+                TransactionsDataGrid.ItemsSource = query.ToList();
             }
+        }
+
+        private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddTransaction newTransaction = new AddTransaction();
+            newTransaction.ShowDialog();
         }
     }
 }
