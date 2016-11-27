@@ -18,26 +18,25 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content="Date"/>
         <DatePicker x:Name="DatePicker" Width="100" HorizontalAlignment="Left" Grid.Column="1"/>
 
         <Label Content="Value" Grid.Row="1"/>
-        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="textValue" Grid.Row="1" Grid.Column="1"/>
 
         <Label Content="Account" Grid.Row="2"/>
-        <ComboBox Grid.Row="2" Grid.Column="1"/>
+        <ComboBox x:Name="AccountComboBox" Grid.Row="2" Grid.Column="1"/>
 
         <Label Content="Concept" Grid.Row="3"/>
-        <TextBox Grid.Row="3" Grid.Column="4"/>
+        <TextBox x:Name="textConcept" Grid.Row="3" Grid.Column="4"/>
 
-        <Label Content="Type" Grid.Row="4"/>
-        <ComboBox Grid.Row="4" Grid.Column="1"/>
+        <!--<Label Content="Type" Grid.Row="4"/>
+        <ComboBox Grid.Row="4" Grid.Column="1"/>-->
 
-        <Button Content="Add" Grid.Row="5"/>
-        <Button Content="Cancel" Grid.Row="5" Grid.Column="1"/>
+        <Button Content="Add" Grid.Row="4" Click="AddTransactionEvent"/>
+        <Button Content="Cancel" Grid.Row="4" Grid.Column="1" Click="Cancel"/>
 
     </Grid>
 </Window>

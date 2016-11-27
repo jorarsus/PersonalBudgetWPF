@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PersonalBudgetWPF.EF;
 
 namespace PersonalBudgetWPF
 {
@@ -19,9 +20,35 @@ namespace PersonalBudgetWPF
     /// </summary>
     public partial class AddTransaction : Window
     {
+        PersonalBudgetContext ctx = new PersonalBudgetContext();
+
         public AddTransaction()
         {
             InitializeComponent();
+
+            var query = from account in ctx.Accounts
+                select account.Concept;
+
+            AccountComboBox.ItemsSource = query.ToList();
+        }
+
+        private void AddTransactionEvent(object sender, RoutedEventArgs e)
+        {
+            // Get Account
+            var query = from account in ctx.Accounts
+                        where account.Concept == (String)AccountComboBox.SelectedItem
+                        select account;
+
+            Transaction transaction = new EF.Transaction() { Date = DatePicker.DisplayDate, Value=Convert.ToDecimal(textValue.Text), Concept = textConcept.Text, Account = query.First()};
+            ctx.Transactions.Add(transaction);
+            ctx.SaveChanges();
+
+            this.Close();
+        }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

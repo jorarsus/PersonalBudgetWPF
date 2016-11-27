@@ -25,22 +25,6 @@ namespace PersonalBudgetWPF
         public MainWindow()
         {
             InitializeComponent();
-
-            //using (var ctx = new PersonalBudgetContext())
-            //{
-            //    Transaction trans = new Transaction { Value = 100, Date=DateTime.Now};
-
-            //    ctx.Transactions.Add(trans);
-
-            //    try
-            //    {
-            //        ctx.SaveChanges();
-            //    }
-            //    catch (DbUpdateException e)
-            //    {
-            //        Console.WriteLine(e);
-            //    }
-            //}
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -50,7 +34,7 @@ namespace PersonalBudgetWPF
                 var Transactions = ctx.Transactions;
 
                 var query = from transaction in Transactions
-                            select new { transaction.Date, transaction.Value , AccountType = transaction.Account.Concept, transaction.Concept, transaction.Type.Description};
+                            select new { transaction.Date, transaction.Value , Account = transaction.Account.Concept, transaction.Concept};
 
                 TransactionsDataGrid.ItemsSource = query.ToList();
             }
