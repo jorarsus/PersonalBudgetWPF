@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PersonalBudgetWPF.EF;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace PersonalBudgetWPF
 {
@@ -22,6 +23,8 @@ namespace PersonalBudgetWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PersonalBudgetContext ctx = new PersonalBudgetContext();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,21 +32,31 @@ namespace PersonalBudgetWPF
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            using (var ctx = new PersonalBudgetContext())
-            {
-                var Transactions = ctx.Transactions;
+            System.Windows.Data.CollectionViewSource transactionViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionViewSource")));
 
-                var query = from transaction in Transactions
-                            select new { transaction.Date, transaction.Value , Account = transaction.Account.Concept, transaction.Concept};
+            ctx.Transactions.Load();
 
-                TransactionsDataGrid.ItemsSource = query.ToList();
-            }
+            // Load data by setting the CollectionViewSource.Source property:
+            transactionViewSource.Source = ctx.Transactions.Local;
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
         {
             AddTransaction newTransaction = new AddTransaction();
             newTransaction.ShowDialog();
+            ctx.Transactions.Load(); // Update DbSet Local with the added (or not) Transaction
+        }
+
+        private void buttonSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+
+            }
         }
     }
 }
