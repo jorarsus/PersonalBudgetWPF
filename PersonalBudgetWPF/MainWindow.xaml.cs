@@ -32,7 +32,7 @@ namespace PersonalBudgetWPF
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            System.Windows.Data.CollectionViewSource transactionViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionViewSource")));
+            CollectionViewSource transactionViewSource = (CollectionViewSource)(this.FindResource("transactionViewSource"));
 
             ctx.Transactions.Load();
 
@@ -42,7 +42,7 @@ namespace PersonalBudgetWPF
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
         {
-            AddTransaction newTransaction = new AddTransaction();
+            AddTransactionWindow newTransaction = new AddTransactionWindow(ctx);
             newTransaction.ShowDialog();
             ctx.Transactions.Load(); // Update DbSet Local with the added (or not) Transaction
         }

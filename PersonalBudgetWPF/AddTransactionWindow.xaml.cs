@@ -12,27 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PersonalBudgetWPF.EF;
+using System.Data.Entity;
 
 namespace PersonalBudgetWPF
 {
     /// <summary>
     /// Interaction logic for NewTransaction.xaml
     /// </summary>
-    public partial class AddTransaction : Window
+    public partial class AddTransactionWindow : Window
     {
-        PersonalBudgetContext ctx = new PersonalBudgetContext();
+        private PersonalBudgetContext ctx;
+        public PersonalBudgetContext Context { get; set; }
 
-        public AddTransaction()
+        public AddTransactionWindow(PersonalBudgetContext context)
         {
             InitializeComponent();
 
+            ctx = context;
+
             var query = from account in ctx.Accounts
-                select account.Concept;
+                        select account.Concept;
 
             AccountComboBox.ItemsSource = query.ToList();
         }
 
-        private void AddTransactionEvent(object sender, RoutedEventArgs e)
+
+        public void AddTransactionEvent(object sender, RoutedEventArgs e)
         {
             // Get Account
             var query = from account in ctx.Accounts
@@ -40,10 +45,14 @@ namespace PersonalBudgetWPF
                         select account;
 
             Transaction transaction = new EF.Transaction() { Date = DatePicker.DisplayDate, Value=Convert.ToDecimal(textValue.Text), Concept = textConcept.Text, Account = query.First()};
+            AddTransaction(transaction);
+            this.Close();
+        }
+
+        public void AddTransaction(Transaction transaction)
+        {
             ctx.Transactions.Add(transaction);
             ctx.SaveChanges();
-
-            this.Close();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
