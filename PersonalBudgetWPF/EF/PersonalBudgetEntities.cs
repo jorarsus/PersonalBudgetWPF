@@ -3,6 +3,7 @@ namespace PersonalBudgetWPF.EF
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Linq;
 
@@ -30,8 +31,12 @@ namespace PersonalBudgetWPF.EF
     public class Transaction
     {
         public int Id { get; set; }
+
         public DateTime Date { get; set; }
+
         public Decimal Value { get; set; }
+
+        [Required]
         public String Concept { get; set; }
 
         public Nullable<int> AccountID { get; set; } // Foreign Key
@@ -39,7 +44,6 @@ namespace PersonalBudgetWPF.EF
 
         public Nullable<int> TypeID { get; set; } // Foreign Key
         public Type Type { get; set; }
-
     }
 
     public class Account
@@ -50,6 +54,8 @@ namespace PersonalBudgetWPF.EF
         }
 
         public int Id { get; set; }
+
+        [Required]
         public String Concept { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
@@ -62,6 +68,8 @@ namespace PersonalBudgetWPF.EF
             Transactions = new HashSet<Transaction>();
         }
         public int Id { get; set; }
+
+        [Required]
         public String Description { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
