@@ -36,7 +36,6 @@ namespace PersonalBudgetWPF.EF
 
         public Decimal Value { get; set; }
 
-        [Required]
         public String Concept { get; set; }
 
         public Nullable<int> AccountID { get; set; } // Foreign Key
