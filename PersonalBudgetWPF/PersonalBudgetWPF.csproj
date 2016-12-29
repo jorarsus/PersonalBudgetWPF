@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201612281222581_NotNullValidationsFix.Designer.cs">
       <DependentUpon>201612281222581_NotNullValidationsFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612291048163_TransactionConceptNullable.cs" />
+    <Compile Include="Migrations\201612291048163_TransactionConceptNullable.Designer.cs">
+      <DependentUpon>201612291048163_TransactionConceptNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="AddTransactionWindow.xaml.cs">
       <DependentUpon>AddTransactionWindow.xaml</DependentUpon>
@@ -146,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612281222581_NotNullValidationsFix.resx">
       <DependentUpon>201612281222581_NotNullValidationsFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291048163_TransactionConceptNullable.resx">
+      <DependentUpon>201612291048163_TransactionConceptNullable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
