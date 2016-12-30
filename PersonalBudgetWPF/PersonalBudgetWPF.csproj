@@ -76,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Repos\BaseRepo.cs" />
+    <Compile Include="Repos\IRepo.cs" />
+    <Compile Include="Repos\AccountRepo.cs" />
+    <Compile Include="Repos\TransactionRepo.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

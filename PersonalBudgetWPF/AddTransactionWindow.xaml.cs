@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PersonalBudgetWPF.EF;
 using System.Data.Entity;
+using PersonalBudgetWPF.Repos;
 
 namespace PersonalBudgetWPF
 {
@@ -22,7 +23,6 @@ namespace PersonalBudgetWPF
     public partial class AddTransactionWindow : Window
     {
         private PersonalBudgetContext ctx;
-        public PersonalBudgetContext Context { get; set; }
 
         public AddTransactionWindow(PersonalBudgetContext context)
         {
@@ -30,10 +30,10 @@ namespace PersonalBudgetWPF
 
             ctx = context;
 
-            var query = from account in ctx.Accounts
-                        select account.Concept;
-
-            AccountComboBox.ItemsSource = query.ToList();
+            using (var repo = new AccountRepo())
+            {
+                AccountComboBox.ItemsSource = repo.GetAllConcepts();
+            }
         }
 
 
