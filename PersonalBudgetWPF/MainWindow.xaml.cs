@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PersonalBudgetWPF.EF;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
+using PersonalBudgetWPF.Repos;
 
 namespace PersonalBudgetWPF
 {
@@ -23,39 +24,44 @@ namespace PersonalBudgetWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private PersonalBudgetContext ctx = new PersonalBudgetContext();
+        // XAML element with the source of the transaction view
+        CollectionViewSource transactionViewSource;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            transactionViewSource = (CollectionViewSource)(this.FindResource("transactionViewSource"));
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource transactionViewSource = (CollectionViewSource)(this.FindResource("transactionViewSource"));
-
-            ctx.Transactions.Load();
-
-            // Load data by setting the CollectionViewSource.Source property:
-            transactionViewSource.Source = ctx.Transactions.Local;
+            UpdateView();
         }
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
         {
             AddTransactionWindow newTransaction = new AddTransactionWindow();
             newTransaction.ShowDialog();
-            ctx.Transactions.Load(); // Update DbSet Local with the added (or not) Transaction
+            UpdateView();
+        }
+
+        /// <summary>
+        /// Updates Transaction View
+        /// </summary>
+        private void UpdateView()
+        {
+            using (var repo = new TransactionRepo())
+            {
+                transactionViewSource.Source = repo.GetAll();
+            }
         }
 
         private void buttonSaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            try
+            using (var repo = new TransactionRepo())
             {
-                ctx.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-
+                repo.SaveChanges();
             }
         }
     }
