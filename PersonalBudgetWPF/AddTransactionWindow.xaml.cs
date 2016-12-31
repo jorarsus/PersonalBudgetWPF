@@ -22,13 +22,10 @@ namespace PersonalBudgetWPF
     /// </summary>
     public partial class AddTransactionWindow : Window
     {
-        private PersonalBudgetContext ctx;
 
-        public AddTransactionWindow(PersonalBudgetContext context)
+        public AddTransactionWindow()
         {
             InitializeComponent();
-
-            ctx = context;
 
             using (var repo = new AccountRepo())
             {
@@ -36,23 +33,31 @@ namespace PersonalBudgetWPF
             }
         }
 
-
+        /// <summary>
+        /// Event handler for the 'Add transaction' button
+        /// </summary>
+        /// <remarks>
+        /// Fills a transaction and inserts it in the database </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void AddTransactionEvent(object sender, RoutedEventArgs e)
         {
-            // Get Account
-            var query = from account in ctx.Accounts
-                        where account.Concept == (String)AccountComboBox.SelectedItem
-                        select account;
+            // Get selected account
+            Account selectedAccount;
+            using (var repo = new AccountRepo())
+            {
+                selectedAccount = repo.GetAccountByConcept((String)AccountComboBox.SelectedItem);
+            }
 
-            Transaction transaction = new EF.Transaction() { Date = DatePicker.DisplayDate, Value=Convert.ToDecimal(textValue.Text), Concept = textConcept.Text, Account = query.First()};
-            AddTransaction(transaction);
+            // Creates transaction
+            Transaction transaction = new EF.Transaction() { Date = DatePicker.DisplayDate, Value = Convert.ToDecimal(textValue.Text), Concept = textConcept.Text, Account = selectedAccount };
+
+            using(var repo = new TransactionRepo())
+            {
+                repo.Add(transaction);
+            }
+
             this.Close();
-        }
-
-        public void AddTransaction(Transaction transaction)
-        {
-            ctx.Transactions.Add(transaction);
-            ctx.SaveChanges();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

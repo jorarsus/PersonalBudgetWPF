@@ -42,7 +42,7 @@ namespace PersonalBudgetWPF
 
         private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
         {
-            AddTransactionWindow newTransaction = new AddTransactionWindow(ctx);
+            AddTransactionWindow newTransaction = new AddTransactionWindow();
             newTransaction.ShowDialog();
             ctx.Transactions.Load(); // Update DbSet Local with the added (or not) Transaction
         }

@@ -36,7 +36,7 @@ namespace PersonalBudgetWPF.Tests
             // Setup mocks
             mockContext.Setup(m => m.Accounts).Returns(mockAccounts.Object);
             mockContext.Setup(m => m.Transactions).Returns(mockTransactions.Object);
-            var window = new AddTransactionWindow(mockContext.Object);
+            var window = new AddTransactionWindow();
 
             // Act
             Transaction transaction = new Transaction { Date = DateTime.Now, Value = 120, Account = new Account { Concept = "Food" }, Concept = "Market" };
