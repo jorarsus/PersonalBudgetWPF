@@ -15,6 +15,6 @@
             <Button x:Name="button" Content="New Transaction" Click="AddTransactionButtonClick"/>
             <Button x:Name="buttonSaveChanges" Content="Save Changes" Click="buttonSaveChanges_Click"/>
         </ToolBar>
-        <DataGrid x:Name="TransactionsDataGrid" Margin="10,47,4,4" ItemsSource="{Binding}"/>
+        <DataGrid x:Name="TransactionsDataGrid" Margin="10,47,4,4" ItemsSource="{Binding}" AlternationCount="2" AlternatingRowBackground="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" RowBackground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
     </Grid>
 </Window>
