@@ -80,6 +80,7 @@
     <Compile Include="Repos\IRepo.cs" />
     <Compile Include="Repos\AccountRepo.cs" />
     <Compile Include="Repos\TransactionRepo.cs" />
+    <Compile Include="Utils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

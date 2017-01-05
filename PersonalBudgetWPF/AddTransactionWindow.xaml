@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="NewTransaction" Height="300" Width="300"
         ShowInTaskbar="False">
-    <Grid>
+    <Grid x:Name="TransactionGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -21,22 +21,19 @@
         </Grid.RowDefinitions>
 
         <Label Content="Date"/>
-        <DatePicker x:Name="DatePicker" Width="100" HorizontalAlignment="Left" Grid.Column="1"/>
+        <DatePicker x:Name="DatePicker" Width="100" HorizontalAlignment="Left" Grid.Column="1" Text="{Binding Date, ValidatesOnExceptions=True}"/>
 
         <Label Content="Value" Grid.Row="1"/>
-        <TextBox x:Name="textValue" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="textValue" Grid.Row="1" Grid.Column="1" Text="{Binding Value, ValidatesOnExceptions=True}"/>
 
         <Label Content="Account" Grid.Row="2"/>
         <ComboBox x:Name="AccountComboBox" Grid.Row="2" Grid.Column="1"/>
 
         <Label Content="Concept" Grid.Row="3"/>
-        <TextBox x:Name="textConcept" Grid.Row="3" Grid.Column="4"/>
+        <TextBox x:Name="textConcept" Grid.Row="3" Grid.Column="4" Text="{Binding Concept, ValidatesOnExceptions=True}"/>
 
-        <!--<Label Content="Type" Grid.Row="4"/>
-        <ComboBox Grid.Row="4" Grid.Column="1"/>-->
-
-        <Button Content="Add" x:Name="addButton" Grid.Row="4" Click="AddTransactionEvent"/>
-        <Button Content="Cancel" Grid.Row="4" Grid.Column="1" Click="Cancel"/>
+        <Button Content="Add" x:Name="addButton" Grid.Row="4" Click="ButtonAddTransaction_Click"/>
+        <Button Content="Cancel" Grid.Row="4" Grid.Column="1" Click="ButtonCancel_Click"/>
 
     </Grid>
 </Window>

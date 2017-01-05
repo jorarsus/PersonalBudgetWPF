@@ -39,7 +39,7 @@ namespace PersonalBudgetWPF
             UpdateView();
         }
 
-        private void AddTransactionButtonClick(object sender, RoutedEventArgs e)
+        private void ButtonAddTransaction_Click(object sender, RoutedEventArgs e)
         {
             AddTransactionWindow newTransaction = new AddTransactionWindow();
             newTransaction.ShowDialog();
@@ -57,7 +57,7 @@ namespace PersonalBudgetWPF
             }
         }
 
-        private void buttonSaveChanges_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveChanges_Click(object sender, RoutedEventArgs e)
         {
             using (var repo = new TransactionRepo())
             {

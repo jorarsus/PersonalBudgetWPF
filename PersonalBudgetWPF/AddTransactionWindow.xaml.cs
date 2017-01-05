@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using PersonalBudgetWPF.EF;
 using System.Data.Entity;
 using PersonalBudgetWPF.Repos;
+using System.Collections.ObjectModel;
 
 namespace PersonalBudgetWPF
 {
@@ -31,6 +32,8 @@ namespace PersonalBudgetWPF
             {
                 AccountComboBox.ItemsSource = repo.GetAllConcepts();
             }
+            // Creates new Transaction for Binding and validation
+            this.DataContext = new EF.Transaction() { Date = DateTime.Now };
         }
 
         /// <summary>
@@ -40,8 +43,14 @@ namespace PersonalBudgetWPF
         /// Fills a transaction and inserts it in the database </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void AddTransactionEvent(object sender, RoutedEventArgs e)
+        public void ButtonAddTransaction_Click(object sender, RoutedEventArgs e)
         {
+            if(!Utils.IsValid(TransactionGrid))
+            {
+                MessageBox.Show("Transaction is not valid");
+                return;
+            }
+
             // Get selected account
             Account selectedAccount;
             using (var repo = new AccountRepo())
@@ -50,6 +59,7 @@ namespace PersonalBudgetWPF
             }
 
             // Creates transaction
+            // TODO: this should use the Transaction created in the constructor
             Transaction transaction = new EF.Transaction() { Date = DatePicker.DisplayDate, Value = Convert.ToDecimal(textValue.Text), Concept = textConcept.Text, Account = selectedAccount };
 
             using(var repo = new TransactionRepo())
@@ -60,7 +70,7 @@ namespace PersonalBudgetWPF
             this.Close();
         }
 
-        private void Cancel(object sender, RoutedEventArgs e)
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

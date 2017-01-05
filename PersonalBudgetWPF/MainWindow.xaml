@@ -12,8 +12,8 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource transactionViewSource}">
         <ToolBar x:Name="toolBar" Margin="10,10,11,0" Height="32" VerticalAlignment="Top">
-            <Button x:Name="button" Content="New Transaction" Click="AddTransactionButtonClick"/>
-            <Button x:Name="buttonSaveChanges" Content="Save Changes" Click="buttonSaveChanges_Click"/>
+            <Button x:Name="button" Content="New Transaction" Click="ButtonAddTransaction_Click"/>
+            <Button x:Name="buttonSaveChanges" Content="Save Changes" Click="ButtonSaveChanges_Click"/>
         </ToolBar>
         <DataGrid x:Name="TransactionsDataGrid" Margin="10,47,4,4" ItemsSource="{Binding}" AlternationCount="2" AlternatingRowBackground="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" RowBackground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
     </Grid>
